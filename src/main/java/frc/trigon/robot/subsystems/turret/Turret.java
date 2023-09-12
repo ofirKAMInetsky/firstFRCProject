@@ -24,9 +24,17 @@ public class Turret extends SubsystemBase {
         return INSTANCE;
     }
 
+    /**
+     * Creates a command that aligns to the reflector.
+     *
+     * @param reflectorPositionSupplier the reflector position Supplier
+     * @param hasTargetSupplier         a supplier that indicates whether a target is present
+     * @return return the command
+     */
     public CommandBase getAlignToReflectorCommand(Supplier<Double> reflectorPositionSupplier, Supplier<Boolean> hasTargetSupplier) {
         return new FunctionalCommand(
-                () -> {},
+                () -> {
+                },
                 () -> alignToReflector(reflectorPositionSupplier.get(), hasTargetSupplier.get()),
                 (interrupted) -> stop(),
                 () -> false,

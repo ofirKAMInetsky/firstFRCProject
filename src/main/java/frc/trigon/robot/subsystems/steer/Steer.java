@@ -22,25 +22,46 @@ Steer extends SubsystemBase {
     private Steer() {
     }
 
-    public CommandBase getSetTargetAngleCommand(Supplier<Double> angleDegrees){
+    /**
+     * Creates a command to set a target angle in degrees using a given angle supplier.
+     *
+     * @param angleDegrees A Supplier that provides the target angle in degrees
+     * @return return the command
+     */
+    public CommandBase getSetTargetAngleCommand(Supplier<Double> angleDegrees) {
         return new FunctionalCommand(
-                () -> {},
+                () -> {
+                },
                 () -> setTargetAngle(angleDegrees.get()),
                 (interrupted) -> stop(),
                 () -> false,
                 this
         );
     }
-    public CommandBase getSetTargetAngleCommand(double angleDegrees){
+
+    /**
+     * Creates a command to set a target angle in degrees directly.
+     *
+     * @param angleDegrees The target angle in degrees
+     * @return return the command
+     */
+    public CommandBase getSetTargetAngleCommand(double angleDegrees) {
         return new FunctionalCommand(
-                () -> {},
+                () -> {
+                },
                 () -> setTargetAngle(angleDegrees),
                 (interrupted) -> stop(),
                 () -> false,
                 this
         );
     }
-    public CommandBase getTargetAngleCommand(){
+
+    /**
+     * Get a command to set a sequence of target angles.
+     *
+     * @return return the command
+     */
+    public CommandBase getTargetAngleCommand() {
         return new SequentialCommandGroup(
                 getSetTargetAngleCommand(90).withTimeout(3),
                 getSetTargetAngleCommand(180).withTimeout(3),
